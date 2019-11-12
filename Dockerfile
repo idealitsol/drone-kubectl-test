@@ -1,29 +1,11 @@
-FROM 'dtzar/helm-kubectl'
+FROM bitnami/kubectl:1.13
 
-RUN apk update && apk add bash
+COPY init-kubectl kubectl /opt/idealitsol/kubectl/bin/
 
-RUN apk add \
-    python \
-    py-pip \
-    curl \
-    bash \
-    git \
-    jq \
-    zip \
-    && \
-    pip install --upgrade awscli && \
-    apk -v --purge del py-pip && \
-    rm /var/cache/apk/*
+USER root
 
-ENV HELM_HOME /tmp/helm
-RUN mkdir -p /tmp/helm
-RUN helm init --client-only
-RUN helm plugin install https://github.com/futuresimple/helm-secrets
-RUN helm plugin install https://github.com/hypnoglow/helm-s3.git
+ENV PATH="/opt/idealitsol/kubectl/bin:$PATH"
 
-COPY run.sh /run.sh
-RUN chmod +x /run.sh
-
-ENTRYPOINT ["/run.sh"]
+ENTRYPOINT ["kubectl"]
 
 CMD ["--help"]
