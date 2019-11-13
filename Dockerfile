@@ -2,7 +2,7 @@ FROM bitnami/kubectl:1.13
 
 LABEL maintainer "Idealitsol <opensource@idealitsol.com>"
 
-COPY init-kubectl kubectl /opt/idealitsol/bin/
+COPY init-kubectl run /opt/idealitsol/bin/
 
 USER root
 
