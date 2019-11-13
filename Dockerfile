@@ -2,12 +2,12 @@ FROM bitnami/kubectl:1.13
 
 LABEL maintainer "Idealitsol <opensource@idealitsol.com>"
 
-COPY init-kubectl kubectl /opt/idealitsol/kubectl/bin/
+COPY init-kubectl kubectl /opt/idealitsol/bin/
 
 USER root
 
-ENV PATH="/opt/idealitsol/kubectl/bin:$PATH"
+ENV PATH="/opt/idealitsol/bin:$PATH"
 
-ENTRYPOINT ["kubectl"]
+ENTRYPOINT ["run"]
 
 CMD ["--help"]
